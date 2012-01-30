@@ -18,6 +18,7 @@ class Project(info: ProjectInfo)
 
   val specsVersion = "1.6.9" 
   val versionSuffix = "_" + buildScalaVersion
+  override def repositories = super.repositories - ("atlassian" at "https://m2proxy.atlassian.com/repository/public/")
 
   // Projects
 
@@ -137,5 +138,6 @@ class Project(info: ProjectInfo)
     override def compileOptions = super.compileOptions ++ Seq(Unchecked) ++
       compileOptions("-encoding", "utf8") ++
       compileOptions("-deprecation")
+    override def repositories = super.repositories - ("atlassian" at "https://m2proxy.atlassian.com/repository/public/")
   }
 }
