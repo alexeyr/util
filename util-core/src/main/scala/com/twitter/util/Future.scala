@@ -563,11 +563,13 @@ trait FutureEventListener[T] {
   /**
    * Invoked if the computation completes successfully
    */
+  @throws[Exception]
   def onSuccess(value: T): Unit
 
   /**
    * Invoked if the computation completes unsuccessfully
    */
+  @throws[Exception]
   def onFailure(cause: Throwable): Unit
 }
 
@@ -592,6 +594,7 @@ abstract class FutureTransformer[-A, +B] {
    * Invoked if the computation completes successfully. Returns the
    * new transformed value in a Future.
    */
+  @throws[Exception]
   def flatMap(value: A): Future[B] = Future.value(map(value))
 
   /**
@@ -600,18 +603,21 @@ abstract class FutureTransformer[-A, +B] {
    *
    * ''Note'': this method will throw an `AbstractMethodError` if it is not overridden.
    */
+  @throws[Exception]
   def map(value: A): B = throw new AbstractMethodError
 
   /**
    * Invoked if the computation completes unsuccessfully. Returns the
    * new Future value.
    */
+  @throws[Exception]
   def rescue(throwable: Throwable): Future[B] = Future.value(handle(throwable))
 
   /**
    * Invoked if the computation fails. Returns the new transformed
    * value.
    */
+  @throws[Exception]
   def handle(throwable: Throwable): B = throw throwable
 }
 
